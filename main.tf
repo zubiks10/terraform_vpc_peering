@@ -1,6 +1,6 @@
 # Define provider
 provider "aws" {
-  region = "us-east-1" # Change to your desired region
+  region = "eu-west-1" # Change to your desired region
 }
 
 # Create VPC
@@ -16,7 +16,7 @@ resource "aws_vpc" "main" {
 resource "aws_subnet" "dev_subnet" {
   vpc_id            = aws_vpc.main.id
   cidr_block        = "10.0.1.0/24" # Update CIDR block as needed
-  availability_zone = "us-east-1a" # Change availability zone as needed
+  availability_zone = "eu-west-1" # Change availability zone as needed
 
   tags = {
     Name = "DevSubnet"
@@ -26,7 +26,7 @@ resource "aws_subnet" "dev_subnet" {
 resource "aws_subnet" "test_subnet" {
   vpc_id            = aws_vpc.main.id
   cidr_block        = "10.0.2.0/24" # Update CIDR block as needed
-  availability_zone = "us-east-1b" # Change availability zone as needed
+  availability_zone = "eu-west-1" # Change availability zone as needed
 
   tags = {
     Name = "TestSubnet"
@@ -36,7 +36,7 @@ resource "aws_subnet" "test_subnet" {
 resource "aws_subnet" "prod_subnet" {
   vpc_id            = aws_vpc.main.id
   cidr_block        = "10.0.3.0/24" # Update CIDR block as needed
-  availability_zone = "us-east-1c" # Change availability zone as needed
+  availability_zone = "eu-west-1" # Change availability zone as needed
 
   tags = {
     Name = "ProdSubnet"
@@ -45,7 +45,7 @@ resource "aws_subnet" "prod_subnet" {
 
 # Create VPC Peering connections
 resource "aws_vpc_peering_connection" "dev_to_prod" {
-  provider = aws.us-west-2 # Change to the provider where Prod VPC is
+  provider = aws.eu-west-1 # Change to the provider where Prod VPC is
   vpc_id   = aws_vpc.main.id
   peer_vpc_id = "prod_vpc_id_here" # Update with the Prod VPC ID
   auto_accept = true
@@ -56,7 +56,7 @@ resource "aws_vpc_peering_connection" "dev_to_prod" {
 }
 
 resource "aws_vpc_peering_connection" "test_to_prod" {
-  provider = aws.us-west-2 # Change to the provider where Prod VPC is
+  provider = aws.eu-west-1 # Change to the provider where Prod VPC is
   vpc_id   = aws_vpc.main.id
   peer_vpc_id = "prod_vpc_id_here" # Update with the Prod VPC ID
   auto_accept = true
